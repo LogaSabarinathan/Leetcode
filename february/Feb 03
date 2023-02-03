@@ -1,0 +1,42 @@
+class Solution {
+public:
+    string convert(string s, int n) {
+        if(n==1) return s;
+        vector<string> vec;
+        int size=s.size(),i=0,flag=1,j;
+        while(i<size){
+            if(flag){
+                string str;
+                for(int j=i;j<(i+n) && j<size;j++){
+                    str+=s[j];
+                }
+                while(str.size()!=n){
+                    str+=' ';
+                }
+                i+=n;
+                vec.push_back(str);
+                flag=0;
+            }else{
+                string str;
+                for(j=i;j<(i+n-2) && j<size;j++){
+                    str+=s[j];
+                }
+                i+=n-2;
+                flag=1;
+                reverse(str.begin(),str.end());
+                str+=' ';
+                while(str.size()!=n){
+                    str=' '+str;
+                }
+                vec.push_back(str);
+            }
+        }
+        string str;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<vec.size();j++){
+                if(vec[j][i]!=' ') str+=vec[j][i];
+            }
+        }
+        return str;
+    }
+};
