@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+        map<char,int> mp,temp;
+        for(char i:s1) mp[i]++;
+        temp=mp;
+        for(int i=0;i<s2.size();i++){
+            int k=i;
+            if(mp[s2[i]]){
+                int j,flag=0;
+                if(i+s1.size()-1<s2.size()) j=i+s1.size()-1;
+                else return 0;
+                while(i<=j && i<s2.size()){
+                    if(temp[s2[i]]) temp[s2[i++]]--;
+                    else {
+                        flag=1;
+                        break;
+                    }
+                    if(i==j+1) continue;
+                    if(temp[s2[j]]) temp[s2[j--]]--;
+                    else{
+                        flag=1;
+                        break;
+                    }
+                }
+                if(flag) temp=mp;
+                else return 1;
+            }
+            i=k;
+        }
+        return 0;
+    }
+};
